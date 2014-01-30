@@ -25,4 +25,25 @@ describe('sourceURL', function() {
     stream.write(fakeFile);
     stream.end();
   });
+
+  it('takes an optional relative directory', function(done) {
+    var stream = sourceUrl(__dirname);
+
+    var fakeFile = new File({
+      cwd: __dirname,
+      base: __dirname + '/test',
+      path: __dirname + '/test/file.js',
+      contents: new Buffer('Hello')
+    });
+
+    stream.on('data', function(file) {
+      var sourceUrlRegex = /\/\/# sourceURL=(.+)$/;
+      var contents = file.contents.toString();
+      expect(contents.match(sourceUrlRegex)[1]).to.be('test/file.js');
+      done();
+    });
+
+    stream.write(fakeFile);
+    stream.end();
+  });
 });
