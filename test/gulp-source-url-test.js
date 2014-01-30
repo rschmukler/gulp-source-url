@@ -2,6 +2,8 @@ var sourceUrl = require('../'),
     expect = require('expect.js'),
     File = require('gulp-util').File;
 
+var sourceUrlRegex = /\/\/# sourceURL=((\w|\/|\.|-)+)/;
+
 describe('sourceURL', function() {
   it('appends the sourceUrl signature to the file', function(done) {
     var stream = sourceUrl();
@@ -10,15 +12,33 @@ describe('sourceURL', function() {
       cwd: __dirname,
       base: __dirname + '/test',
       path: __dirname + '/test/file.js',
-      contents: new Buffer('Hello')
+      contents: new Buffer('console.log("Hello world")')
     });
 
     stream.on('data', function(file) {
-      var sourceUrlRegex = /\/\/# sourceURL=(.+)$/;
       var contents = file.contents.toString();
-      expect(contents.split('\n')).to.have.length(2);
       expect(contents).to.match(sourceUrlRegex);
       expect(contents.match(sourceUrlRegex)[1]).to.be(__dirname + '/test/file.js');
+      done();
+    });
+
+    stream.write(fakeFile);
+    stream.end();
+  });
+
+  it('wraps JS in evals', function(done) {
+    var stream = sourceUrl();
+
+    var fakeFile = new File({
+      cwd: __dirname,
+      base: __dirname + '/test',
+      path: __dirname + '/test/file.js',
+      contents: new Buffer('console.log("Hello world")')
+    });
+
+    stream.on('data', function(file) {
+      var contents = file.contents.toString();
+      expect(contents).to.match(/^eval\(/);
       done();
     });
 
@@ -37,7 +57,6 @@ describe('sourceURL', function() {
     });
 
     stream.on('data', function(file) {
-      var sourceUrlRegex = /\/\/# sourceURL=(.+)$/;
       var contents = file.contents.toString();
       expect(contents.match(sourceUrlRegex)[1]).to.be('test/file.js');
       done();
