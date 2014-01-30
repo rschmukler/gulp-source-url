@@ -1,0 +1,31 @@
+{
+  "name": "gulp-source-url",
+  "version": "0.1.0",
+  "description": "Source URLs for files run though with gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rschmukler/gulp-source-url"
+  },
+  "keywords": [
+    "gulp",
+    "sourceUrl",
+    "source",
+    "url",
+    "source",
+    "map"
+  ],
+  "author": "Ryan Schmukler <ryan@slingingcode.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rschmukler/gulp-source-url/issues"
+  },
+  "homepage": "https://github.com/rschmukler/gulp-source-url",
+  "devDependencies": {
+    "expect.js": "~0.2.0",
+    "mocha": "~1.17.1"
+  }
+}
