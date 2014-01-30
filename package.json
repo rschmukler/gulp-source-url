@@ -26,6 +26,10 @@
   "homepage": "https://github.com/rschmukler/gulp-source-url",
   "devDependencies": {
     "expect.js": "~0.2.0",
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "gulp-util": "~2.2.13"
+  },
+  "dependencies": {
+    "map-stream": "~0.1.0"
   }
 }
