@@ -1,6 +1,6 @@
 {
   "name": "gulp-source-url",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Source URLs for files run though with gulp",
   "main": "index.js",
   "scripts": {
