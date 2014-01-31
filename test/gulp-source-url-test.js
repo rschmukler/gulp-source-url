@@ -65,4 +65,26 @@ describe('sourceURL', function() {
     stream.write(fakeFile);
     stream.end();
   });
+
+  describe('options', function() {
+    it('has an anonymous function option', function(done) {
+      var stream = sourceUrl(undefined, {anonymous: true});
+
+      var fakeFile = new File({
+        cwd: __dirname,
+        base: __dirname + '/test',
+        path: __dirname + '/test/file.js',
+        contents: new Buffer('Hello')
+      });
+
+      stream.on('data', function(file) {
+        var contents = file.contents.toString();
+        expect(contents).to.match(/function\(\) \{.*\}\(\)/);
+        done();
+      });
+
+      stream.write(fakeFile);
+      stream.end();
+    });
+  });
 });
