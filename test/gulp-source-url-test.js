@@ -79,7 +79,7 @@ describe('sourceURL', function() {
 
       stream.on('data', function(file) {
         var contents = file.contents.toString();
-        expect(contents).to.match(/function\(\) \{.*\}\(\)/);
+        expect(contents).to.match(/\(function\(\) \{.*\}\)\(\)/);
         done();
       });
 

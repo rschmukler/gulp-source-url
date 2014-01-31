@@ -29,7 +29,7 @@ function wrapInEval(code, anonymousWrap) {
   result = 'eval("' + code + '");';
 
   if(anonymousWrap) {
-    result = 'function() { ' + result + ' }()';
+    result = '(function() { ' + result + ' })()';
   }
   return result;
 }
