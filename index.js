@@ -25,11 +25,11 @@ function isExtension(path, extension) {
 
 function wrapInEval(code, anonymousWrap) {
   var result;
+  if(anonymousWrap) {
+    code = '(function() {\n' + code + '\n})()';
+  }
   code = jsStringEscape(code);
   result = 'eval("' + code + '");';
 
-  if(anonymousWrap) {
-    result = '(function() { ' + result + ' })()';
-  }
   return result;
 }
