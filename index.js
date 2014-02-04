@@ -12,7 +12,7 @@ module.exports = function(relative, options) {
     var contents = file.contents.toString();
     contents += "\n//# sourceURL=" + sourcePath;
 
-    if(isExtension(file.path, 'js')) contents = wrapInEval(contents, options.anonymous);
+    if(isExtension(file.path, 'js')) contents = wrapInFn(contents);
 
     file.contents = new Buffer(contents);
     cb(null, file);
@@ -23,13 +23,10 @@ function isExtension(path, extension) {
   return new RegExp('.' + extension + '$').test(path);
 }
 
-function wrapInEval(code, anonymousWrap) {
+function wrapInFn(code, anonymousWrap) {
   var result;
-  if(anonymousWrap) {
-    code = '(function() {\n' + code + '\n})()';
-  }
   code = jsStringEscape(code);
-  result = 'eval("' + code + '");';
+  result = 'new Function("' + code + '")();';
 
   return result;
 }
