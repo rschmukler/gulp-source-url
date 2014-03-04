@@ -12,6 +12,7 @@
   },
   "keywords": [
     "gulp",
+    "gulpplugin",
     "sourceUrl",
     "source",
     "url",
